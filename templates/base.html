@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>{% block title %}Django Learning Platform{% endblock %}</title>
+        <meta charset="utf-8">
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{% static 'css/font-awesome.css' %}">
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+        <link rel="stylesheet" class="js-color-style" href="{% static 'css/color-1.css' %}">
+
+    </head>
+    <body>
+
+        <!-- main wrapper start -->
+        <div class="main-wrapper">
+
+            <!-- header start -->
+            <header class="header">
+                <div class="container">
+                    <div class="header-main d-flex justify-content-between align-items-center">
+                        <div class="header-logo">
+                            <a href="{% url 'index' %}"><span>robo</span>edu</a>
+                        </div>
+                            <button type="button" class="header-hamburger-btn js-header-menu-toggler">
+                                <span></span>
+                            </button> 
+                            <div class="header-backdrop js header-backdrop"></div>
+                            <nav class="header-menu js-header-menu">
+                                <button type="button" class="header-close-btn js-header-menu-toggler">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                                <ul class="menu">
+                                    <li class="menu-item"><a href="{% url 'index' %}">bosh sahifa</a></li>
+                                    <li class="menu-item "><a href="courses.html">kurslar</a></li>
+                                    <li class="menu-item menu-item-has-children">
+                                        <a href="#" class="js-toggle-sub-menu">sahifalar <i class="fas fa-chevron-down"></i></a>
+                                        <ul class="sub-menu js-sub-menu">
+                                            {% if user.is_authenticated %}
+                                            <li class="sub-menu-item"> 
+                                            <form action="{% url 'logout' %}" method="post">
+                                                {% csrf_token %}
+                                                <button type="submit">chiqish</button>
+                                            </form></li>
+                                            {% else %}
+                                            <li class="sub-menu-item"><a href="{% url 'login' %}">tizimga kirish</a></li> 
+                                            <li class="sub-menu-item"><a href="{% url 'register' %}">ro'yxatdan o'tish</a></li>
+                                
+                                            {% endif %}
+                                        </ul>
+                                    </li>
+                                    <li class="menu-item"><a href="contact.html">biz haqimizda</a></li>
+                                </ul>
+                            </nav>
+                    </div>
+                </div>
+             </header>
+            <!-- header end-->
+            {% block content %}{% endblock %}
+             <!-- footer start -->
+  <footer class="footer">
+    <div class="footer-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 col-lg-3">
+                    <div class="footer-item">
+                        <h3 class="footer-logo"><span>robo</span>edu</h3>
+                        <ul>
+                            <li><a href="#">biz haqimizda</a></li>
+                            <li><a href="#">sertifikatlar</a></li>
+                            <li><a href="#">loyihalar</a></li>
+                            <li><a href="#">yangiliklar</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="footer-item">
+                        <h3>Kurslar</h3>
+                        <ul>
+                            <li><a href="#">boshlang'ich daraja</a></li>
+                            <li><a href="#">o'rta daraja</a></li>
+                            <li><a href="#">yuqori daraja</a></li>
+                            <li><a href="#">musobaqalar</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                <div class="footer-item">
+                    <h3>Loyihalar</h3>
+                    <ul>
+                        <li><a href="#">Top loyihalar</a></li>
+                        <li><a href="#">Foydali ixtirolar</a></li>
+                        <li><a href="#">Loyihalar namoyishi</a></li>
+                        <li><a href="#">Baham ko'rish</a></li>
+                    </ul>
+                </div>
+            </div>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="footer-item">
+                        <h3>Biz bilan bog'laning</h3>
+                        <ul>
+                            <li><a href="#"><i class="fab fa-facebook-f social-icon"></i> facebook</a></li>
+                            <li><a href="#"><i class="fab fa-telegram social-icon"></i> telegram</a></li>
+                            <li><a href="#"><i class="fab fa-instagram social-icon"></i> instagram</a></li>
+                            <li><a href="#"><i class="fab fa-youtube social-icon"></i> youtube</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <div class="container">
+            <p class="m-0 py-4 text-center">Copyright &copy; 2025 Yakubova Diloromxon | RoboEdu</p>
+        </div>
+    </div>
+  </footer>
+ <!-- footer end -->
+
+
+
+        </div>
+        <!-- main wrapper end -->
+
+        <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+        <script src="{% static 'js/main.js' %}"></script>
+    </body>
+</html>

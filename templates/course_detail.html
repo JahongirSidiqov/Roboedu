@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - Django Learning Platform{% endblock %}
+
+{% block content %}
+<img src="{{ course.image.url }}" alt="{{ course.title }}">
+<h1>{{ course.title }}</h1>
+<p>{{ course.description }}</p>
+
+{% if not is_enrolled %}
+    <form action="{% url 'enroll' course.id %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Enroll in this Course</button>
+    </form>
+{% else %}
+    <h2>Darslar ketma-ketligi:</h2>
+    <ul>
+        {% for lesson in lessons %}
+            <li><a href="{% url 'lesson_detail' lesson.id %}"><strong>{{ lesson.title }}</strong></a></li>
+        {% empty %}
+            <li>No lessons available for this course.</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+<a href="{% url 'index' %}">Back to Courses</a>
+{% endblock %}
+
+

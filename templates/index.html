@@ -1,0 +1,179 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Home - Django Learning Platform{% endblock %}
+
+{% block content %}
+     <!-- banner section start -->
+     <section class="banner-section d-flex align-items-center">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <div class="banner-text">
+                        <h2 class="mb-3">ROBOEDU kreativ fikrlash va texnologiyalar to'qnashuvi</h2>
+                        <h1 class="mb-3">KELAJAK MUHANDISLARI BU YERDAN BOSHLANADI!</h1>
+                        <p class="mb-4">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iure, fugit!</p>
+                        <a href="#" class="btn btn-theme">bizga qo'shiling</a>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="banner-img">
+                        <div class="circular-img">
+                            <div class="circular-img-inner">
+                                <div class="circular-img-circle"></div>
+                                <!-- <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.79/build/spline-viewer.js"></script>
+                                <spline-viewer url="https://prod.spline.design/eDwyf72RqsptqxE9/scene.splinecode"></spline-viewer>  -->
+                                <img src="{% static 'image/banner-img.png' %}" alt="banner img">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+     </section>
+    <!-- banner section end -->
+
+    <!-- fun facts section start -->
+    <section class="fun-facts-section">
+        <div class="container">
+            <div class="box py-2">
+                <div class="row text-center">
+                    <div class="col-md-6 col-lg-3">
+                        <div class="fun-facts-item">
+                            <h2 class="style-1">200k</h2>
+                            <p>O'quvchilar</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="fun-facts-item">
+                            <h2 class="style-2">150+</h2>
+                            <p>kurslar</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="fun-facts-item">
+                            <h2 class="style-3">50+</h2>
+                            <p>innovatsion loyihalar</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="fun-facts-item">
+                            <h2 class="style-4">100+</h2>
+                            <p>robot loyihalar</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- fun facts section start -->
+
+    <!-- courses section start -->
+     <section class="courses-section section-padding">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="section-title text-center">
+                        <h2 class="title">Bolalar uchun moslashtirilgan robototexnika kurslari</h2>
+                        <p class="sub-title">O'rganing, yarating, ilhom oling!</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                {% for course in courses %}
+                {% if course.id %}
+                        <!-- courses item start -->
+                  <div class="col-md-6 col-lg-4">
+                    <div class="courses-item">
+                        <a href="{% url 'course_detail' course.id %}" class="link">
+                            <div class="courses-item-inner">
+                                <div class="img-box">
+                                    <img src="{{ course.image.url }}" alt="{{ course.title }}">
+                                </div>
+                                <h3 class="title text-center">{{ course.title }}</h3>
+                                <div class="sub-title">{{ course.description }}</div>
+                            </div>
+                        </a>
+                    </div>
+                 </div>
+                <!-- courses item end -->
+                {% else %}
+                <li><strong>Invalid Course (Missing ID)</strong></li>
+                {% endif %}
+                {% empty %}
+                No courses available at the moment.
+                {% endfor %}
+            </div>
+            <div class="row">
+                <div class="col-12 text-center mt-3">
+                    <a href="courses.html" class="btn btn-theme">Batafsil ko'rish</a>
+                </div>
+            </div>
+        </div>
+     </section>
+    <!-- courses section end -->
+
+<!-- Loyiha Galereyasi Boshlanishi -->
+<section class="projects-gallery section-padding">
+<div class="container">
+<div class="row align-items-center">
+    <!-- Rasm Galereyasi -->
+    <div class="col-md-6">
+        <div class="gallery-grid">
+            <div class="gallery-item"><img src="{% static 'image/project_1.JPG' %}" alt="Project 1"></div>
+            <div class="gallery-item"><img src="{% static 'image/project_2.jpg' %}" alt="Project 2"></div>
+            <div class="gallery-item"><img src="{% static 'image/project_3.jpg' %}" alt="Project 3"></div>
+        </div>
+    </div>
+    <!-- Matn va tugmalar -->
+    <div class="col-md-6">
+        <h2 class="title">Bolalar tomonidan yaratilgan ijodiy loyihalar</h2>
+        <div class="btn-group">
+            <a href="#" class="btn btn-theme">O'z loyihangizni qo'shing!</a>
+            <a href="#" class="btn btn-outline">Batafsil ma'lumot</a>
+        </div>
+    </div>
+</div>
+</div>
+</section>
+<!-- Loyiha Galereyasi Tugashi -->
+
+
+<!-- Sharhlar Bo'limi Boshlanishi -->
+<section class="testimonials section-padding">
+<div class="container">
+<div class="row align-items-center">
+    <div class="col-md-6">
+        <h2 class="title">Bizning yosh ixtirochilarimizdan eshiting!</h2>
+        <a href="#" class="btn btn-theme">Bizga qo'shiling</a>
+    </div>
+    <div class="col-md-6">
+        <div class="video-box">
+            <iframe width="100%" height="315" src="https://www.youtube.com/embed/owtav1r4jAE?si=_7tcILc3V_9GII01" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+</div>
+</div>
+</section>
+<!-- Sharhlar Bo'limi Tugashi -->
+
+<!-- contacts start -->
+<section class="contact-section">
+<div class="container">
+<div class="contact-box">
+    <div class="contact-text">
+        <h2>Savollaringiz bo'lsa, <br> bizga murojaat qiling.</h2>
+        <p>Barcha savollaringizga javob olasiz</p>
+    </div>
+    <div class="contact-form">
+        <input type="text" placeholder="Ism" required>
+        <input type="email" placeholder="Email" required>
+        <textarea placeholder="Xabar" required></textarea>
+        <button class="btn-theme">Jo'natish</button>
+    </div>
+</div>
+</div>
+</section>
+<!-- contacts end -->
+
+    <br><br>
+{% endblock %}

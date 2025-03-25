@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - Django Learning Platform{% endblock %}
+
+{% block content %}
+<h1>{{ lesson.title }}</h1>
+
+{% if lesson.video_url %}
+    <h3>Watch Video:</h3>
+    <iframe width="560" height="315" 
+            src="{{ lesson.video_url|cut:'watch?v='|add:'embed/' }}" 
+            frameborder="0" allowfullscreen>
+    </iframe>
+{% else %}
+    <p>No video available for this lesson.</p>
+{% endif %}
+<p>{{ lesson.content }}</p>
+<h3>Lessons in this Course:</h3>
+<ul>
+    {% for l in lessons %}
+        <li><a href="{% url 'lesson_detail' l.id %}">{{ l.title }}</a></li>
+    {% endfor %}
+</ul>
+
+<a href="{% url 'course_detail' lesson.course.id %}">Back to Course</a>
+{% endblock %}

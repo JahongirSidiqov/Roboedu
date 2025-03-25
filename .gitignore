@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 # Ignore Python cache files
 __pycache__/
@@ -198,6 +199,8 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 =======
+=======
+>>>>>>> bf66f6c (Initial commit)
 # Ignore Python cache files
 __pycache__/
 *.pyc
@@ -221,4 +224,7 @@ static/
 # Ignore environment settings
 *.env
 .env
+<<<<<<< HEAD
 >>>>>>> def14476b4e9e15c397fa87942bc2c6a5d2b9ac4
+=======
+>>>>>>> bf66f6c (Initial commit)

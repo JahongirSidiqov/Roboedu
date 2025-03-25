@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 # Ignore Python cache files
 __pycache__/
@@ -196,3 +197,28 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+=======
+# Ignore Python cache files
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignore virtual environment
+venv/
+.env/
+.venv/
+
+# Ignore database
+db.sqlite3
+
+# Ignore Django migrations
+*/migrations/
+
+# Ignore media and static files
+media/
+static/
+
+# Ignore environment settings
+*.env
+.env
+>>>>>>> def14476b4e9e15c397fa87942bc2c6a5d2b9ac4

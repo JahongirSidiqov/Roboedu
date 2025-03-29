@@ -34,7 +34,7 @@
                                 </button>
                                 <ul class="menu">
                                     <li class="menu-item"><a href="{% url 'index' %}">bosh sahifa</a></li>
-                                    <li class="menu-item "><a href="courses.html">kurslar</a></li>
+                                    <li class="menu-item "><a href="{% url 'courses' %}">kurslar</a></li>
                                     <li class="menu-item menu-item-has-children">
                                         <a href="#" class="js-toggle-sub-menu">sahifalar <i class="fas fa-chevron-down"></i></a>
                                         <ul class="sub-menu js-sub-menu">
@@ -51,7 +51,7 @@
                                             {% endif %}
                                         </ul>
                                     </li>
-                                    <li class="menu-item"><a href="contact.html">biz haqimizda</a></li>
+                                    <li class="menu-item"><a href="{% url 'contact' %}">biz haqimizda</a></li>
                                 </ul>
                             </nav>
                     </div>

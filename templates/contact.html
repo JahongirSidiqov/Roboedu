@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<section class="contact-section">
+    <div class="container">
+        <div class="contact-box">
+            <div class="contact-text">
+                <h2>Savollaringiz bo'lsa, <br> bizga murojaat qiling.</h2>
+                <p>Barcha savollaringizga javob olasiz</p>
+            </div>
+            <div class="contact-form">
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button class="btn-theme" type="submit">Jo'natish</button>
+                </form>
+                {% if messages %}
+                    {% for message in messages %}
+                        <p class="success-message">{{ message }}</p>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

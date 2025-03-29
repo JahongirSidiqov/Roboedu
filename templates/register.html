@@ -1,13 +1,50 @@
-{% extends 'base.html' %}
-
-{% block title %}Home - Django Learning Platform{% endblock %}
+{% extends "base.html" %}
+{% load static %}
 
 {% block content %}
-<h2>Register</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Register</button>
-</form>
-<p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+<!-- sign up section start -->
+<section class="signup section-padding">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-7 col-lg-6 col-xl-5">
+                <div class="signup-form box">
+                    <h2 class="form-title text-center">Registratsiyadan o'tish</h2>
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        <div class="form-group">
+                            {{ form.username }}
+                            {% if form.username.errors %}
+                                <small class="error">{{ form.username.errors.0 }}</small>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form.email }}
+                            {% if form.email.errors %}
+                                <small class="error">{{ form.email.errors.0 }}</small>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form.password1 }}
+                            {% if form.password1.errors %}
+                                <small class="error">{{ form.password1.errors.0 }}</small>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form.password2 }}
+                            {% if form.password2.errors %}
+                                <small class="error">{{ form.password2.errors.0 }}</small>
+                            {% endif %}
+                        </div>
+                        <button type="submit" class="btn btn-block btn-theme btn-form">Sign Up</button>
+                        <p class="text-center mt-4 mb-0">
+                            Akkauntingiz allaqachon mavjudmi? <a href="{% url 'login' %}">Log in</a>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- sign up section end -->
 {% endblock %}

@@ -4,15 +4,27 @@ from django.contrib.auth.models import AbstractUser, Group, Permission
 class CustomUser(AbstractUser):
     is_student = models.BooleanField(default=False)
     is_instructor = models.BooleanField(default=False)
-    
+
     groups = models.ManyToManyField(Group, related_name="customuser_groups", blank=True)
     user_permissions = models.ManyToManyField(Permission, related_name="customuser_permissions", blank=True)
 
+    def __str__(self):
+        return self.username
+
 class Course(models.Model):
+    class LevelChoices(models.TextChoices):
+        BEGINNER = "beginner", "Beginner"
+        INTERMEDIATE = "intermediate", "Intermediate"
+        ADVANCED = "advanced", "Advanced"
     title = models.CharField(max_length=255)
     description = models.TextField()
     instructor = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="courses")
     image = models.ImageField(upload_to='course_images/', blank=True, null=True)  # New image field
+    level = models.CharField(
+        max_length=20,
+        choices=LevelChoices.choices,
+        default=LevelChoices.BEGINNER
+    )
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -52,3 +64,13 @@ class Answer(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name="answers")
     text = models.CharField(max_length=255)
     is_correct = models.BooleanField(default=False)
+
+
+class ContactMessage(models.Model):
+    name = models.CharField(max_length=255)
+    email = models.EmailField()
+    message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Message from {self.name}"

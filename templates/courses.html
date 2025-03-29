@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Home - Django Learning Platform{% endblock %}
+
+{% block content %}
+<form method="GET">
+    <label>Filter by Level:</label>
+    <button type="submit" name="level" value="">All Levels</button>
+    <button type="submit" name="level" value="beginner">Beginner</button>
+    <button type="submit" name="level" value="intermediate">Intermediate</button>
+    <button type="submit" name="level" value="advanced">Advanced</button>
+</form>
+
+    <!-- courses section start -->
+     <section class="courses-section section-padding">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="section-title text-center">
+                        <h2 class="title">Bolalar uchun moslashtirilgan robototexnika kurslari</h2>
+                        <p class="sub-title">O'rganing, yarating, ilhom oling!</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                {% for course in courses %}
+                {% if course.id %}
+                        <!-- courses item start -->
+                  <div class="col-md-6 col-lg-4">
+                    <div class="courses-item">
+                        <a href="{% url 'course_detail' course.id %}" class="link">
+                            <div class="courses-item-inner">
+                                <div class="img-box">
+                                    {% if course.image %}
+                                        <img src="{{ course.image.url }}" alt="{{ course.title }}" width="200">
+                                    {% endif %}
+                                </div>
+                                <h3 class="title text-center">{{ course.title }}</h3>
+                                <div class="sub-title">{{ course.level }}</div>
+                                <div class="sub-title">{{ course.description }}</div>
+                            </div>
+                        </a>
+                    </div>
+                 </div>
+                <!-- courses item end -->
+                {% else %}
+                <li><strong>Invalid Course (Missing ID)</strong></li>
+                {% endif %}
+                {% empty %}
+                No courses available at the moment.
+                {% endfor %}
+            </div>
+        </div>
+     </section>
+    <!-- courses section end -->
+    <br><br>
+{% endblock %}

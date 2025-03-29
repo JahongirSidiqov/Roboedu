@@ -12,7 +12,7 @@
                         <h2 class="mb-3">ROBOEDU kreativ fikrlash va texnologiyalar to'qnashuvi</h2>
                         <h1 class="mb-3">KELAJAK MUHANDISLARI BU YERDAN BOSHLANADI!</h1>
                         <p class="mb-4">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iure, fugit!</p>
-                        <a href="#" class="btn btn-theme">bizga qo'shiling</a>
+                        <a href="{% url 'register' %}" class="btn btn-theme">bizga qo'shiling</a>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -79,7 +79,7 @@
                 </div>
             </div>
             <div class="row justify-content-center">
-                {% for course in courses %}
+                {% for course in courses|slice:":3" %}
                 {% if course.id %}
                         <!-- courses item start -->
                   <div class="col-md-6 col-lg-4">
@@ -87,7 +87,10 @@
                         <a href="{% url 'course_detail' course.id %}" class="link">
                             <div class="courses-item-inner">
                                 <div class="img-box">
-                                    <img src="{{ course.image.url }}" alt="{{ course.title }}">
+                                    {% if course.image %}
+                                        <img src="{{ course.image.url }}" alt="{{ course.title }}" width="200">
+                                    {% endif %}
+                                    
                                 </div>
                                 <h3 class="title text-center">{{ course.title }}</h3>
                                 <div class="sub-title">{{ course.description }}</div>
@@ -105,7 +108,7 @@
             </div>
             <div class="row">
                 <div class="col-12 text-center mt-3">
-                    <a href="courses.html" class="btn btn-theme">Batafsil ko'rish</a>
+                    <a href="{% url 'courses' %}" class="btn btn-theme">Batafsil ko'rish</a>
                 </div>
             </div>
         </div>
@@ -144,7 +147,7 @@
 <div class="row align-items-center">
     <div class="col-md-6">
         <h2 class="title">Bizning yosh ixtirochilarimizdan eshiting!</h2>
-        <a href="#" class="btn btn-theme">Bizga qo'shiling</a>
+        <a href="{% url 'register' %}" class="btn btn-theme">Bizga qo'shiling</a>
     </div>
     <div class="col-md-6">
         <div class="video-box">

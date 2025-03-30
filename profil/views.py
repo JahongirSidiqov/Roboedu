@@ -1,32 +1,22 @@
-from django.shortcuts import render
-from django.views.generic import CreateView
-from django.contrib.auth import login
-from django.shortcuts import redirect
-from django.urls import reverse_lazy
-from .forms import CustomUserCreationForm
-from .models import CustomUser
-from django.views.generic import TemplateView, DetailView
-from django.urls import reverse_lazy
-from django.views.generic import CreateView
-from django.contrib.auth.forms import UserCreationForm
-from django.urls import reverse_lazy
-from django.contrib.auth import get_user_model
-from .forms import CustomUserCreationForm
 from django.shortcuts import render, redirect, get_object_or_404
+from django.views.generic import CreateView, ListView, DetailView, TemplateView
+from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
-from .models import Course, Lesson, Enrollment
-from django.views.generic import ListView
-from django import forms
-from .models import ContactMessage
 from django.contrib.auth.views import LoginView
+from django.contrib.auth import get_user_model
+from django.urls import reverse_lazy
+from django.contrib import messages
+from django.views.generic.edit import FormView
+from django import forms
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views import View
+from django.contrib.auth.mixins import LoginRequiredMixin
+from .forms import CustomUserCreationForm, ContactForm
+from .models import CustomUser, Course, Lesson, Enrollment, ContactMessage
+
 User = get_user_model()
 
-from django.views.generic.edit import FormView
-from django.contrib import messages
-from django.urls import reverse_lazy
-from .forms import ContactForm
-from .models import ContactMessage
-
+# Contact Form View
 class ContactView(FormView):
     template_name = "contact.html"
     form_class = ContactForm
@@ -37,40 +27,30 @@ class ContactView(FormView):
         messages.success(self.request, "Xabaringiz yuborildi!")
         return super().form_valid(form)
 
-class ContactForm(forms.ModelForm):
-    class Meta:
-        model = ContactMessage
-        fields = ['name', 'email', 'message']
-
+# Course List View
 class CourseListView(ListView):
     model = Course
-    template_name = "courses.html"  # Template file
-    context_object_name = "courses"  # Variable name in template
+    template_name = "courses.html"
+    context_object_name = "courses"
+
     def get_queryset(self):
-        level = self.request.GET.get("level")  # Get level from URL query
-        if level:
-            return Course.objects.filter(level=level)
-        return Course.objects.all()
+        level = self.request.GET.get("level")
+        return Course.objects.filter(level=level) if level else Course.objects.all()
 
-
-class CourseDetailView(DetailView):
+# Course Detail View
+class CourseDetailView(LoginRequiredMixin,DetailView):
     model = Course
     template_name = "course_detail.html"
     context_object_name = "course"
+    login_url = reverse_lazy("login") 
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["lessons"] = self.object.lessons.all()
-        context["is_enrolled"] = Enrollment.objects.filter(user=self.request.user, course=self.object).exists()  
+        context["is_enrolled"] = Enrollment.objects.filter(user=self.request.user, course=self.object).exists()
         return context
 
-
-@login_required
-def enroll_in_course(request, course_id):
-    course = get_object_or_404(Course, id=course_id)
-    enrollment, created = Enrollment.objects.get_or_create(user=request.user, course=course)
-    return redirect("course_detail", pk=course.id)
-
+# Lesson Detail View
 class LessonDetailView(DetailView):
     model = Lesson
     template_name = "lesson_detail.html"
@@ -81,7 +61,15 @@ class LessonDetailView(DetailView):
         context["course"] = self.object.course
         context["lessons"] = Lesson.objects.filter(course=self.object.course)
         return context
-    
+
+# Enroll in Course (Function-Based View)
+class EnrollInCourseView(LoginRequiredMixin, View):
+    def post(self, request, course_id, *args, **kwargs):
+        course = get_object_or_404(Course, id=course_id)
+        Enrollment.objects.get_or_create(user=request.user, course=course)
+        return redirect(reverse_lazy("course_detail", kwargs={"pk": course.id}))
+
+# User Registration View
 class RegisterView(CreateView):
     model = CustomUser
     form_class = CustomUserCreationForm
@@ -93,19 +81,20 @@ class RegisterView(CreateView):
         login(self.request, user)
         return redirect(self.success_url)
 
+# Custom Login View
 class CustomLoginView(LoginView):
     template_name = 'login.html'
-    redirect_authenticated_user = True  # Redirect already logged-in users
-    success_url = reverse_lazy('index')  # Redirect after successful login
+    redirect_authenticated_user = True
+    success_url = reverse_lazy('index')
 
     def get_success_url(self):
         return self.success_url
 
+# Homepage View
 class HomePageView(TemplateView):
     template_name = 'index.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["courses"] = Course.objects.all()  # Fetch all courses
+        context["courses"] = Course.objects.all()
         return context
-    

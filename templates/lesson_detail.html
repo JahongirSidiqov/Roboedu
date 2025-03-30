@@ -1,26 +1,50 @@
 {% extends 'base.html' %}
 
-{% block title %}Home - Django Learning Platform{% endblock %}
+{% block title %}Lesson{% endblock %}
 
 {% block content %}
-<h1>{{ lesson.title }}</h1>
+<div class="section-title text-center">
+    <h2>{{ lesson.title }}</h2>
+</div>
+
 
 {% if lesson.video_url %}
-    <h3>Watch Video:</h3>
-    <iframe width="560" height="315" 
-            src="{{ lesson.video_url|cut:'watch?v='|add:'embed/' }}" 
-            frameborder="0" allowfullscreen>
-    </iframe>
+    <!-- <h3>Watch Video:</h3> -->
+     <!-- Sharhlar Bo'limi Boshlanishi -->
+<section class="testimonials section-padding">
+    <div class="container">
+    <div class="row align-items-center">
+        <!-- <div class="col-md-6">
+            <h2 class="title">Bizning yosh ixtirochilarimizdan eshiting!</h2>
+            <a href="{% url 'register' %}" class="btn btn-theme">Bizga qo'shiling</a>
+        </div> -->
+        <div class="col-md-12">
+            <div class="video-box">
+                <iframe width="100%" height="315" src="{{ lesson.video_url|cut:'watch?v='|add:'embed/' }}" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+    </div>
+    </section>
+    <!-- Sharhlar Bo'limi Tugashi -->
+    
 {% else %}
-    <p>No video available for this lesson.</p>
+    <p>Ushbu darsda video yo'q.</p>
 {% endif %}
-<p>{{ lesson.content }}</p>
-<h3>Lessons in this Course:</h3>
-<ul>
-    {% for l in lessons %}
-        <li><a href="{% url 'lesson_detail' l.id %}">{{ l.title }}</a></li>
-    {% endfor %}
-</ul>
+<div class="section-title text-center">
+    <h3>Dars matni:</h2>
+    <p>{{ lesson.content }}</p>
+</div>
+<div class=" text-center">
+<h3>Darslar:</h3>
 
+<ol>
+    {% for lesson in lessons %}
+        <h3><li><a href="{% url 'lesson_detail' lesson.id %}"><strong>{{ lesson.title }}</strong></a></li></h3>
+    {% empty %}
+        <li>Darslar hali qo'shilmagan</li>
+    {% endfor %}
+</ol>
+</div>
 <a href="{% url 'course_detail' lesson.course.id %}">Back to Course</a>
 {% endblock %}

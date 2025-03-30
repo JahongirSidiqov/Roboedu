@@ -4,11 +4,11 @@
 
 {% block content %}
 <form method="GET">
-    <label>Filter by Level:</label>
-    <button type="submit" name="level" value="">All Levels</button>
-    <button type="submit" name="level" value="beginner">Beginner</button>
-    <button type="submit" name="level" value="intermediate">Intermediate</button>
-    <button type="submit" name="level" value="advanced">Advanced</button>
+    <!-- <label>Filter by Level:</label> -->
+    <button type="submit" name="level" value="" class="btn btn-theme">Hammasi</button>
+    <button type="submit" name="level" value="beginner" class="btn btn-theme">boshlang'ich daraja</button>
+    <button type="submit" name="level" value="intermediate" class="btn btn-theme">o'rta daraja</button>
+    <button type="submit" name="level" value="advanced" class="btn btn-theme">yuqori daraja</button>
 </form>
 
     <!-- courses section start -->
@@ -36,7 +36,7 @@
                                     {% endif %}
                                 </div>
                                 <h3 class="title text-center">{{ course.title }}</h3>
-                                <div class="sub-title">{{ course.level }}</div>
+                                <!-- <div class="sub-title">{{ course.level }}</div> -->
                                 <div class="sub-title">{{ course.description }}</div>
                             </div>
                         </a>

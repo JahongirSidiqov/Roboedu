@@ -5,6 +5,7 @@
         <title>{% block title %}Django Learning Platform{% endblock %}</title>
         <meta charset="utf-8">
         {% load static %}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
         <link rel="stylesheet" href="{% static 'css/styles.css' %}">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="{% static 'css/font-awesome.css' %}">
@@ -42,7 +43,7 @@
                                             <li class="sub-menu-item"> 
                                             <form action="{% url 'logout' %}" method="post">
                                                 {% csrf_token %}
-                                                <button type="submit">chiqish</button>
+                                                <button  class="btn-as-text sub-menu-item" type="submit">Chiqish</button>
                                             </form></li>
                                             {% else %}
                                             <li class="sub-menu-item"><a href="{% url 'login' %}">tizimga kirish</a></li> 

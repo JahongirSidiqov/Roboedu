@@ -129,5 +129,6 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'profil/static'),  
 ]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  
 MEDIA_URL = '/media/'  # URL to access media files
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Directory to store uploaded media files

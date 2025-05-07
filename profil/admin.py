@@ -5,14 +5,14 @@ from .models import CustomUser, Course, Lesson, Quiz, Question, Answer, ContactM
 # Registering CustomUser
 @admin.register(CustomUser)
 class CustomUserAdmin(UserAdmin):
-    list_display = ('username', 'email', 'is_student', 'is_instructor', 'is_staff', 'is_superuser')
+    list_display = ('username', 'email', 'is_student', 'is_instructor', 'is_staff', 'is_superuser','bio','image')
     search_fields = ('username', 'email')
     list_filter = ('is_student', 'is_instructor', 'is_staff')
 
 # Registering Course
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
-    list_display = ('title', 'instructor', 'level', 'created_at')
+    list_display = ('title', 'instructor', 'level', 'duration', 'project_count', 'created_at')
     search_fields = ('title', 'instructor__username', 'level')
 
 # Registering Lesson

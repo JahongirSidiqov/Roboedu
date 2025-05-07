@@ -1,32 +1,194 @@
 {% extends 'base.html' %}
-
-{% block title %}Home - Django Learning Platform{% endblock %}
+{% load static %}
+{% block title %}Course{% endblock %}
 
 {% block content %}
-<div class=" text-center">
-<img src="{{ course.image.url }}" alt="{{ course.title }}">
-<h1>{{ course.title }}</h1>
-<p>{{ course.description }}</p>
-
-{% if not is_enrolled %}
-    <form action="{% url 'enroll_in_course' course.id %}" method="post">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-theme">Boshlash</button>
-    </form>
-{% else %}
-    <h2>Darslar ketma-ketligi:</h2>
-    <ol>
-        {% for lesson in lessons %}
-            <h3><li><a href="{% url 'lesson_detail' lesson.id %}"><strong>{{ lesson.title }}</strong></a></li></h3>
-        {% empty %}
-            <li>Darslar hali qo'shilmagan</li>
-        {% endfor %}
-    </ol>
-{% endif %}
-</div>
 
 
-<a href="{% url 'index' %}">Back to Courses</a>
+            <!-- breaadcrumb start -->
+            <div class="breadcrumb-nav">
+                <div class="container">
+                    <nav aria-label="breaadcrumb">
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item"><a href="{% url 'index' %}">Bosh sahifa</a></li>
+                            <li class="breadcrumb-item"><a href="{% url 'courses' %}">Kurslar</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Kurs ma'lumotlari</li>
+                        </ol>
+                    </nav>
+                </div>
+             </div>
+            <!-- breaadcrumb start -->
+            
+            <!-- course details section start -->
+             <section class="coure-details section-padding">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <!-- course header start -->
+                             <div class="course-header box">
+                                <h2 class="text-capitalize">{{ course.title }}</h2>
+                                <div class="rating">
+                                    <span class="average-rating">({{ course.average_rating }})</span>
+                                    <span class="average-stars">
+                                        {% for i in "12345" %}
+                                            {% if course.average_rating|floatformat:1 >= i %}
+                                                <i class="fas fa-star"></i>
+                                            {% elif course.average_rating|floatformat:1 >= i|add:"-0.5" %}
+                                                <i class="fas fa-star-half-alt"></i>
+                                            {% else %}
+                                                <i class="far fa-star"></i>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </span>
+                                </div>
+                                <ul>
+                                    <li>kursda o'qiyotgan o'quvchilar soni - <span>{{ course.enrollments.count }}</span></li>
+                                    <li>Mentor - <span>{{ course.instructor.username }}</span></li>
+                                    <li>Oxirgi yangilanish - <span>{{ course.created_at|date:"d/m/Y" }}</span></li>
+                                    <li>Til - <span>O'zbek</span></li>
+                                </ul>
+                             </div>
+                            <!-- course header end -->
+
+                            <!-- course tabs start -->
+                            <nav class="course-tabs">
+                                <div class="nav nav-tabs border-0" id="nav-tab" role="tablist">
+                                  <button class="nav-link active" id="course-curriculum-tab" data-bs-toggle="tab" data-bs-target="#course-curriculum" 
+                                  type="button" role="tab" aria-controls="course-curriculum" aria-selected="true">kurs dasturi</button>
+                                  <button class="nav-link" id="course-description-tab" data-bs-toggle="tab" data-bs-target="#course-description" 
+                                  type="button" role="tab" aria-controls="course-description" aria-selected="false">Kurs haqida</button>
+                                  <button class="nav-link" id="course-instructor-tab" data-bs-toggle="tab" data-bs-target="#course-instructor" 
+                                  type="button" role="tab" aria-controls="course-instructor" aria-selected="false">O'qituvchi</button>
+                                </div>
+                              </nav>
+                            <!-- course tabs end -->
+
+                            <!-- tabs panas start -->
+                            <div class="tab-content" id="nav-tabContent">
+
+                                <!-- course curriculum start -->
+                                <div class="tab-pane fade show active" id="course-curriculum" role="tabpanel" 
+                                aria-labelledby="course-curriculum-tab">
+                                    <div class="course-curriculum box">
+                                        <h3 class="text-capitalize mb-4">kurs dasturi</h3>
+                                        <!-- accordion start -->
+                                         <div class="accordion" id="accordion">
+                                            {% for lesson in lessons %}
+                                            <!-- accordion item start -->
+                                            <div class="accordion-item">
+                                                <h2 class="accordion-header" id="heading-{{ forloop.counter }}" >
+                                                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-{{ forloop.counter }}" aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}" aria-controls="collapse-{{ forloop.counter }}">
+                                                    {{ lesson.title }} <span>{{ lesson.created_at|date:"d.m.Y" }}</span>
+                                                  </button>
+                                                </h2>
+                                                <div id="collapse-{{ forloop.counter }}" class="accordion-collapse collapse {% if forloop.first %}show{% endif %}" aria-labelledby="heading-{{ forloop.counter }}" data-bs-parent="#accordion">
+                                                  <div class="accordion-body">
+                                                    <ul>
+                                                        <li>
+                                                            <i class="fas fa-play-circle"></i>
+                                                            {% if not is_enrolled %}
+                                                                {{ lesson.title }}
+                                                            {% else %}
+                                                                <a href="{% url 'lesson_detail' lesson.pk %}">{{ lesson.title }}</a>
+                                                            {% endif %}
+                                                            <span>{{ lesson.duration|default:"00:00" }}</span>
+                                                        </li>
+                                                    </ul>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            <!-- accordion item end -->
+                                            {% empty %}
+                                                <p>Hozircha darslar mavjud emas.</p>
+                                            {% endfor %}
+                                         </div>
+                                        <!-- accordition end -->
+                                    </div>
+                                </div>
+                                <!-- course curriculum end -->
+
+                                <!-- course description start -->
+                                <div class="tab-pane fade" id="course-description" role="tabpanel" 
+                                aria-labelledby="course-description-tab">
+                                    <div class="course-description box">
+                                        <h3 class="text-capitalize mb-4">Kurs haqida ma'lumot</h3>
+                                        <p>{{ course.description }}</p>
+                                    </div>
+                                </div>
+                                <!-- course description start -->
+
+                                <!-- course instructor start -->
+                                <div class="tab-pane fade" id="course-instructor" role="tabpanel" 
+                                aria-labelledby="course-instructor-tab">
+                                    <div class="course-instructor box">
+                                        <h3 class="mb-3 text-capitalize">Mentor</h3>
+                                        <div class="instructor-details">
+                                            <div class="details-wrap d-flex align-items-center flex-wrap">
+                                                <div class="left-box me-4">
+                                                    <div class="img-box">
+                                                        <img src="{% static 'image/mentor.png' %}" class="rounded-circle" alt="instructor img">
+                                                    </div>
+                                                </div>
+                                                <div class="right-box">
+                                                    <h4>Yakubova Diloromxon <span>mentor</span></h4>
+                                                    <ul>
+                                                        <li><i class="fas fa-star"></i>4.8 Reyting</li>
+                                                        <li><i class="fas fa-play-circle"></i>20+ Kurslar</li>
+                                                        <li><i class="fas fa-certificate"></i>150+ o'quvchilar</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                                <div class="text">
+                                                    <p class="mb-0">Lorem ipsum dolor sit amet consectetur, adipisicing elit. 
+                                                    Beatae nihil odio aut est rem eos architecto omnis 
+                                                    dignissimos esse non alias dolore facilis, ullam corrupti. Culpa commodi 
+                                                    quam rem odit!Lorem ipsum dolor sit amet consectetur, adipisicing elit. 
+                                                    Beatae nihil odio aut est rem eos architecto omnis 
+                                                    dignissimos esse non alias dolore facilis, ullam corrupti. Culpa commodi 
+                                                    quam rem odit!</p>
+                                                </div>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- course instructor end -->
+
+                              </div>
+                            <!-- tabs panas end -->
+                        </div>
+                        <div class="col-lg-4">
+                            <!-- course sidebar start -->
+                        <div class="course-sidebar box">
+                            <div class="course-sidebar box">
+                                <div class="img-box position-relative">
+                                    <img src="{{ course.image.url }}" alt="{{ course.title }}">
+                                </div>
+                                <h3 class="mb-3">Kurs ma'lumotlari:</h3>
+                                <ul class="features-list">
+                                    <li>Darslar soni: {{ course.lessons.count }} ta</li>
+                                    <li>Daraja: {{ course.get_level_display }}</li>
+                                    <li>Robot loyihalari: {{ course.project_count }} ta</li>
+                                    <li>Test savollari: {{ course.quizzes.first.questions.count }} ta</li>
+                                    <li>Kurs davomiyligi: {{ course.duration }} hafta</li>
+                                </ul>
+                                <div class="btn-wrap">
+                                    {% if not is_enrolled %}
+                                        <form action="{% url 'enroll_in_course' course.id %}" method="post">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-theme btn-block">Kursga yozilish</button>
+                                        </form>
+                                    {% endif %}
+                                    
+                                </div>
+                            </div>
+                        </div>
+                            <!-- course sidebar end -->
+                        </div>
+                    </div>
+                </div>
+             </section>
+            <!-- course details section start -->
+
 {% endblock %}
 
 

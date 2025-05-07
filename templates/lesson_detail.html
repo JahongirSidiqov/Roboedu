@@ -3,6 +3,20 @@
 {% block title %}Lesson{% endblock %}
 
 {% block content %}
+<!-- breaadcrumb start -->
+<div class="breadcrumb-nav">
+    <div class="container">
+        <nav aria-label="breaadcrumb">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="{% url 'index' %}">Bosh sahifa</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'courses' %}">Kurslar</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'course_detail' lesson.course.id %}">Kurs ma'lumotlari</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Dars</li>
+            </ol>
+        </nav>
+    </div>
+ </div>
+<!-- breaadcrumb start -->
 <div class="section-title text-center">
     <h2>{{ lesson.title }}</h2>
 </div>
@@ -46,5 +60,5 @@
     {% endfor %}
 </ol>
 </div>
-<a href="{% url 'course_detail' lesson.course.id %}">Back to Course</a>
+
 {% endblock %}

@@ -4,7 +4,8 @@ from django.contrib.auth.models import AbstractUser, Group, Permission
 class CustomUser(AbstractUser):
     is_student = models.BooleanField(default=False)
     is_instructor = models.BooleanField(default=False)
-
+    bio = models.TextField(blank=True, null=True)
+    image = models.ImageField(upload_to='instructor_photos/', blank=True, null=True)
     groups = models.ManyToManyField(Group, related_name="customuser_groups", blank=True)
     user_permissions = models.ManyToManyField(Permission, related_name="customuser_permissions", blank=True)
 
@@ -13,9 +14,9 @@ class CustomUser(AbstractUser):
 
 class Course(models.Model):
     class LevelChoices(models.TextChoices):
-        BEGINNER = "beginner", "Beginner"
-        INTERMEDIATE = "intermediate", "Intermediate"
-        ADVANCED = "advanced", "Advanced"
+        BEGINNER = "beginner", "Boshlang'ich"
+        INTERMEDIATE = "intermediate", "O'rta"
+        ADVANCED = "advanced", "Yuqori"
     title = models.CharField(max_length=255)
     description = models.TextField()
     instructor = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="courses")
@@ -26,6 +27,10 @@ class Course(models.Model):
         default=LevelChoices.BEGINNER
     )
     created_at = models.DateTimeField(auto_now_add=True)
+    average_rating = models.FloatField(default=5.0)
+    duration = models.PositiveIntegerField(default=4)  # hafta
+    project_count = models.PositiveIntegerField(default=10)
+
 
     def __str__(self):
         return self.title
@@ -36,6 +41,7 @@ class Lesson(models.Model):
     content = models.TextField()
     video_url = models.URLField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    duration = models.CharField(max_length=10, blank=True, null=True)
 
     def __str__(self):
         return self.title

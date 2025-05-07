@@ -18,7 +18,6 @@ db.sqlite3
 */migrations/
 
 # Ignore media and static files
-
 static/
 
 # Ignore environment settings

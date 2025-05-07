@@ -1,7 +1,156 @@
 {% extends "base.html" %}
 {% load static %}
-
 {% block content %}
+<!-- breaadcrumb start -->
+            <div class="breadcrumb-nav">
+              <div class="container">
+                  <nav aria-label="breaadcrumb">
+                      <ol class="breadcrumb mb-0">
+                          <li class="breadcrumb-item"><a href="index.html">Bosh sahifa</a></li>
+                          <li class="breadcrumb-item active" aria-current="page">Biz haqimizda</li>
+                      </ol>
+                  </nav>
+              </div>
+           </div>
+
+          <!-- breaadcrumb start -->
+
+
+            <!-- Biz haqimizda – Asosiy qism -->
+<section class="section-padding about-section text-center">
+    <div class="container">
+      <p class="title">Yangi avlod uchun yangi davr: Roboedu bilan kelajakni yarating!</p>
+      <h2 class="sub-title">BIZNING KELAJAK SARI QADAMLARIMIZ</h2>
+      <div class="about-img mb-4">
+        <!-- <img src="img/robot-future1.jpg" alt="Kelajak" class="animated-img"> -->
+      </div>
+      <p class="about-text mx-auto" style="max-width: 700px;">
+        Roboedu — bu 8-15 yoshdagi bolalar uchun robototexnika va STEAM (Fan, Texnologiya, Muhandislik, San'at, Matematika) asosida bilim va ko'nikmalarni o‘rgatuvchi onlayn platforma. Biz bolalar uchun texnologiyalar olamini qiziqarli va ijodiy tarzda ochib beramiz.
+      </p>
+    </div>
+  </section>
+  
+  <!-- Missiya va Maqsadlar -->
+  <section class="section-padding mission-goals">
+    <div class="container">
+      <h2 class="sub-title text-center mb-3">MISSIYA VA MAQSADLARIMIZ:</h2>
+      <div class="row justify-content-center">
+        <div class="col-md-6 mb-4">
+          <div class="box">
+            <div class="icon-wrap mb-3">
+              <img src="{% static 'image/mission1.webp' %}" alt="Missiya" class="animated-icon">
+            </div>
+            <h3 class="title justify-content-center">Missiya:</h3>
+            <ul>
+              <li>Yosh avlodga texnologik ko'nikmalarni qiziqarli va innovatsion usulda o'rgatish.</li>
+              <li>Ularni kelajakda texnologiyalarni boshqaruvchi ijodkor shaxs sifatida shakllantirish.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-6 mb-4">
+          <div class="box">
+            <div class="icon-wrap mb-3">
+              <img src="{% static 'image/goal1.webp' %}" alt="goal" class="animated-icon">
+            </div>
+            <h3 class="title justify-content-center">Maqsadlarimiz:</h3>
+            <ul>
+              <li>Dunyo miqyosidagi yetakchi robototexnika o'quv platformalaridan biri bo'lish.</li>
+              <li>Har bir bolaning texnologiyalar bilan yaqindan tanish bo'lish imkoniyatini yaratish.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+              <!-- Nima uchun ROBOEDU platformasi? -->
+<!-- Nima uchun RoboEdu? -->
+<section class="section-padding why-roboedu text-center">
+  <div class="container">
+    <h2 class="sub-title mb-5">Nima uchun RoboEdu?</h2>
+    <div class="row justify-content-center">
+      
+      <div class="col-md-3 col-6 mb-4">
+        <div class="why-card blue-border">
+          <div class="icon-box bg-blue">
+            <img src="img/robot-icon.png" alt="Robot" class="icon-img">
+          </div>
+          <h5>Amaliy tajriba</h5>
+        </div>
+      </div>
+
+      <div class="col-md-3 col-6 mb-4">
+        <div class="why-card purple-border">
+          <div class="icon-box bg-purple">
+            <img src="img/code-icon.png" alt="Code" class="icon-img">
+          </div>
+          <h5>Zamonaviy dasturlar</h5>
+        </div>
+      </div>
+
+      <div class="col-md-3 col-6 mb-4">
+        <div class="why-card green-border">
+          <div class="icon-box bg-green">
+            <img src="img/book-icon.png" alt="Book" class="icon-img">
+          </div>
+          <h5>Malakali o'qituvchilar</h5>
+        </div>
+      </div>
+
+      <div class="col-md-3 col-6 mb-4">
+        <div class="why-card orange-border">
+          <div class="icon-box bg-orange">
+            <img src="img/calculator-icon.png" alt="Calculator" class="icon-img">
+          </div>
+          <h5>Ijodiy fikrlash</h5>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Kelajaktagi Rejalarimiz -->
+<section class="section-padding future-plans text-center">
+  <div class="container">
+    <h2 class="sub-title mb-5">Kelajakdagi rejalarimiz</h2>
+    <div class="row justify-content-center">
+      
+      <div class="col-md-3 col-6 mb-4">
+        <div class="plan-item bg-blue">
+          <img src="img/code-icon.png" alt="New Courses" class="plan-icon">
+        </div>
+        <h5>Yangi kurslar</h5>
+        <p>AI va mashinani o'rganish bo'yicha yangi kurslarni ishga tushirish</p>
+      </div>
+
+      <div class="col-md-3 col-6 mb-4">
+        <div class="plan-item bg-purple">
+          <img src="img/platform-icon.png" alt="Platform" class="plan-icon">
+        </div>
+        <h5>Onlayn platforma</h5>
+        <p>Interaktiv o'quv tajribasi uchun yangilangan onlayn platforma</p>
+      </div>
+
+      <div class="col-md-3 col-6 mb-4">
+        <div class="plan-item bg-green">
+          <img src="img/festival-icon.png" alt="Festival" class="plan-icon">
+        </div>
+        <h5>Loyiha festivali</h5>
+        <p>Yillik o'quvchilar loyihalari ko'rgazmasi va tanlovlari</p>
+      </div>
+
+      <div class="col-md-3 col-6 mb-4">
+        <div class="plan-item bg-orange">
+          <img src="img/collaboration-icon.png" alt="Collaboration" class="plan-icon">
+        </div>
+        <h5>Xalqaro hamkorlik</h5>
+        <p>Xalqaro STEAM ta'lim markazlari bilan hamkorlik dasturlari</p>
+      </div>
+
+    </div>
+  </div>
+</section>
 <section class="contact-section">
     <div class="container">
         <div class="contact-box">

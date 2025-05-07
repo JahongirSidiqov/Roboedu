@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-lmgs7#h=!3_=^yd-=2+hgxwtz*8bj7mp3pq0g7gbl+6653+m6)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 AUTH_USER_MODEL = 'profil.CustomUser'  
@@ -117,6 +117,9 @@ USE_I18N = True
 
 USE_TZ = True
 
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/

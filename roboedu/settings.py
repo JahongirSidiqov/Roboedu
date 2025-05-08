@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-lmgs7#h=!3_=^yd-=2+hgxwtz*8bj7mp3pq0g7gbl+6653+m6)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 AUTH_USER_MODEL = 'profil.CustomUser'  
